@@ -17,17 +17,18 @@ In this workshop, we aim to demonstrate how our new R package OntoPhylo can be u
 Morning.
 * 08:30 am - 09:00 am -- Introductions.
 * 09:00 am - 10:00 am -- Talk: Intro to ontologies and semantics modeling. (Sergei Tarasov)
-* 10:00 am - 10:30 am -- Coffee break (?)
-* 10:30 am - 12:15 pm -- Theory Onto-Phylo. (Demo and hands-on activities with PhenoScript and PhenoSpy.)
-* 12:15 am - 12:30 pm -- Call for participation. PhenoRepo initiative.
+* 10:00 am - 10:15 am -- Coffee break (?)
+* 10:15 am - 11:15 am -- Theory Onto-Phylo.
+* 11.15 am - 11.30 am -- Break 
+* 11:30 am - 12:30 am -- Demo and hands-on activities with OntoPhylo and PARAMO. (ontoFast -> OntoPhylo)
 
 * 12:30 pm - 01:30 pm -- Lunch time
 
 Afternoon.
-* 01:30 pm - 02:30 pm -- Talk: Integrating ontologies, phylogenetics and anatomy. (Diego Porto)
-* 02:30 pm - 04:30 pm -- Demo and hands-on activities with OntoPhylo and PARAMO.
-* 04:30 pm - 05:00 pm -- Coffee break (?)
-* 05:00 pm - 05:30 pm -- Closing, feedback and suggestions.
+* 01:30 pm - 03:30 pm -- Demo and hands-on activities with OntoPhylo and PARAMO.
+* 03.30 am - 03.45 pm -- Break
+* 03:45 pm - 04:45 pm -- Demo Phenoscript
+* 04:45 pm - 05:30 pm -- Closing, feedback and suggestions.
 
 
 ## Pre-workshop preparation
