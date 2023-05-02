@@ -52,7 +52,7 @@ For the hands-on activities of the second part of the workshop, it is necessary 
 - Example of development of a new ontology for the skeletal anatomy of insects - Girón et al. ([2023](https://doi.org/10.1093/sysbio/syad025/7140370))
 
 ## Organizers
-[Sergei Tarasov](https://scholar.google.com/citations?user=CqTq-BkAAAAJ) and [Diego S. Porto](https://scholar.google.com/citations?user=hRTdDu4AAAAJ&hl), Finnish Museum of Natural History, Helsinki, Finland
+[Diego S. Porto](https://scholar.google.com/citations?user=hRTdDu4AAAAJ&hl) and [Sergei Tarasov](https://scholar.google.com/citations?user=CqTq-BkAAAAJ), Finnish Museum of Natural History, Helsinki, Finland
 
 
 ## Funding and Sponsorship
