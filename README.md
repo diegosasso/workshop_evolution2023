@@ -18,16 +18,16 @@ Morning.
 * 08:30 am - 09:00 am -- Introductions.
 * 09:00 am - 10:00 am -- Talk: Intro to ontologies and semantics modeling. (Sergei Tarasov)
 * 10:00 am - 10:15 am -- Coffee break (?)
-* 10:15 am - 11:15 am -- Theory Onto-Phylo.
+* 10:15 am - 11:15 am -- Talk: Theory and introduction to OntoPhylo. (Diego Porto)
 * 11.15 am - 11.30 am -- Break 
-* 11:30 am - 12:30 am -- Demo and hands-on activities with OntoPhylo and PARAMO. (ontoFast -> OntoPhylo)
+* 11:30 am - 12:30 pm -- Demo and hands-on activities with OntoPhylo and PARAMO. (ontoFast -> OntoPhylo)
 
 * 12:30 pm - 01:30 pm -- Lunch time
 
 Afternoon.
-* 01:30 pm - 03:30 pm -- Demo and hands-on activities with OntoPhylo and PARAMO.
-* 03.30 am - 03.45 pm -- Break
-* 03:45 pm - 04:45 pm -- Demo Phenoscript
+* 01:30 pm - 03:30 pm -- Demo and hands-on activities with OntoPhylo and PARAMO. (continuation)
+* 03.30 pm - 03.45 pm -- Break
+* 03:45 pm - 04:45 pm -- Demo Phenoscript.
 * 04:45 pm - 05:30 pm -- Closing, feedback and suggestions.
 
 
