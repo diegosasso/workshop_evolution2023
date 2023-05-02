@@ -18,7 +18,7 @@ Morning.
 * 08:30 am - 09:00 am -- Introductions.
 * 09:00 am - 10:00 am -- Talk: Intro to ontologies and semantics modeling. (Sergei Tarasov)
 * 10:00 am - 10:30 am -- Coffee break (?)
-* 10:30 am - 12:15 pm -- Demo and hands-on activities with PhenoScript and PhenoSpy.
+* 10:30 am - 12:15 pm -- Theory Onto-Phylo. (Demo and hands-on activities with PhenoScript and PhenoSpy.)
 * 12:15 am - 12:30 pm -- Call for participation. PhenoRepo initiative.
 
 * 12:30 pm - 01:30 pm -- Lunch time
