@@ -4,6 +4,8 @@
 ## Description
 This is the main repository for the workshop held at the Evolution 2023 in Albuquerque, NM, USA.
 
+We will be including the materials of the workshop in the Wiki pages soon. Stay tuned!!!
+
 ## Overview
 Ancestral character state reconstruction drives much of the research in biology by providing insight into the mode and tempo of trait evolution. However, comparative phylogenetics has been largely lacking a method for reconstructing the ancestral phenomes---entities that consist of ensembles of multiple discrete traits, such as entire organismal anatomies or body regions.
 
@@ -41,6 +43,7 @@ For the hands-on activities of the second part of the workshop, it is necessary 
 * [OBO Foundry](https://obofoundry.org/)
 * [Protégé](https://protege.stanford.edu/)
 * [Phenoscape](https://phenoscape.org/)/[SCATE](https://scate.phenoscape.org/)
+* [Guide to character annotation (by Phenoscape Team)](https://wiki.phenoscape.org/wiki/Guide_to_Character_Annotation)
 
 ## Suggested readings
 - PARAMO and ontoFAST - Tarasov et al. ([2019](https://doi.org/10.1093/isd/ixz009), [2021](https://doi.org/10.1111/2041-210X.13753))
