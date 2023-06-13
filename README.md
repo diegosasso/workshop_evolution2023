@@ -8,7 +8,7 @@
 </p>
 
 
-- - [Materials and Tutorials for the Workshop](https://github.com/diegosasso/workshop_evolution2023/wiki)
+- [Materials and Tutorials for the Workshop](https://github.com/diegosasso/workshop_evolution2023/wiki)
 
 - **Date and Place:** June 21 (Wednesday) at the Evolution Meeting 2023 in Albuquerque, NM, USA.
 
