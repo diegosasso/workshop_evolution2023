@@ -2,7 +2,7 @@
 # Workshop: Reconstructing evolutionary dynamics of phenomes using new ontology-informed phylogenetic methods
 
 <p align="center">
- [[https://github.com/diegosasso/workshop_evolution2023/blob/main/wiki_figures/ontophylo.png | height=300px | width=300px]]
+  <img src="https://github.com/diegosasso/workshop_evolution2023/blob/main/wiki_figures/ontophylo.png" alt="Ontophylo" height="300px" width="300px">
 </p>
 
 This is the repository for the workshop held at the Evolution 2023 in Albuquerque.
