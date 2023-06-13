@@ -1,11 +1,13 @@
 
 # Workshop: Reconstructing evolutionary dynamics of phenomes using new ontology-informed phylogenetic methods
 
+**This is the repository for the workshop held at the Evolution 2023 in Albuquerque.**
+
 <p align="center">
   <img src="https://github.com/diegosasso/workshop_evolution2023/blob/main/wiki_figures/ontophylo.png" alt="Ontophylo" height="300px" width="300px">
 </p>
 
-This is the repository for the workshop held at the Evolution 2023 in Albuquerque.
+
 
 - Date and Place: June 21 (Wednesday) at the Evolution Meeting 2023 in Albuquerque, NM, USA.
 
