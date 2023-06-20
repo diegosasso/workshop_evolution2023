@@ -1,0 +1,208 @@
+---
+title: "**OntoPhylo Tutorial: PARAMO**"
+author: "Diego S. Porto and Sergei Tarasov"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  pdf_document:
+    citation_package: natbib
+bibliography: references.bib
+biblio-style: "apalike"
+---
+
+```{r setup, eval = TRUE, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load packages.
+
+If you are starting a new R session, then reload *ontophylo*.
+```{r eval = TRUE, include = TRUE, message = FALSE, warning = FALSE}
+library(ontophylo)
+```
+
+And all the other packages. If you have not them installed, please do so by running `install.packages()`.
+```{r eval = TRUE, include = TRUE, message = FALSE, warning = FALSE}
+library(ape)
+library(phytools)
+library(geiger)
+library(corHMM)
+library(tidyverse)
+```
+
+## Load data.
+
+First, load the data from the previous tutorial.
+```{r eval = TRUE, include = TRUE, message = FALSE, warning = FALSE}
+load("RData/step1_annot.RData")
+```
+
+# STEP 1. Sampling individual stochastic character histories.
+
+Now, we will sample character histories for each individual character using stochastic character mapping \citep{huelsenbeck2003}. 
+For the purposes of the PARAMO pipeline \citep{tarasoval2019}, characters should be independent from each other. If dependencies are present, usually indicated as inapplicable character states in a phylogenetic character matrix, then models should be combined and characters recoded accordingly, as discussed in \citet{tarasov2019, tarasov2020, tarasov2023} (see also \citet{simoes2023}). For example, one character may describe the absence/presence of an anatomical structure (e.g. mandible) and another its shape (e.g. straight or curved). Therefore, any character state describing the shape of the mandible depends on the presence of the mandible. A discussion on how to model and code dependent characters is out of the scope of this workshop (see references above). For simplicity, here and in the following tutorials, the selected characters from the modified data set have no dependencies.
+
+Finally, for performing stochastic character mapping we will use a phylogenetic tree modified from \citet{klopfstein2013}.
+
+First, we import the tree, set up some parameters, and create folders to store objects. We will sample 100 stochastic maps per character. The resolution parameter controls the size of episodic bins to discretize the branches of the trees.
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE}
+# Import tree.
+hym_tree <- readRDS("data/hym_tree.RDS")
+
+# Set some parameters.
+n_stm = 100
+res = 500
+
+# Create folder to store simmap objects.
+dir.create("stmaps_discr")
+```
+
+Then, we run stochastic character mapping in *corHMM* \citep{beaulieu2013, boyko2021} or *phytools* \citep{revell2012}. The same analyses can be performed in a Bayesian framework with RevBayes \citep{hohna2016}. For simplicity, let's keep everything within R. In the following lines of code, for each character, we will fit three models with `corHMM` (ER, SYM, ARD), select the best one, and then obtain the mappings. Finally, we will discretize the trees and save them as RDS files. This last step is not strictly necessary, since everything can be kept within R, but exporting heavy objects to external folders helps to alleviate the memory cache. This step can take 5 to 10 minutes to resume depending on your computer. Alternatively, you can skip step 1 and load the RDS file starting step 2.   
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE}
+# Set the same  RNG seed as last tutorial.
+set.seed(42)
+
+# Set a vector with all character names.
+br_chars <- unlist(HYM_ANAT, use.names = FALSE)
+
+for (i in 1:length(br_chars)) {
+  
+  cat(paste0("\n", "Working on: ", br_chars[i], ": ", Sys.time(), "\n"))
+  
+  # Get character vector.
+  char <- cbind(hym_mat$taxa, hym_mat[[br_chars[i]]])
+  
+  # Set candidate models.
+  models <- c("ER", "SYM", "ARD")
+  
+  fit_corHMM <- vector(mode = "list", length = length(models))
+  
+  for (j in 1:length(models)) {
+    
+    # Fit model with corHMM.
+    fit_corHMM[[j]] <- corHMM(phy = hym_tree, data = char, model = models[[j]], 
+                              rate.cat = 1, root.p = "yang")
+    
+  }
+  
+  # Get best model.
+  w <- aicw(sapply(fit_corHMM, function(x) x$AICc))[,3]
+  
+  # Set Q matrix.
+  Q <- fit_corHMM[[min(which(w == max(w)))]]$solution
+  
+  # Simulate stochastic maps.
+  stm <- makeSimmap(tree = hym_tree, data = char, model = Q, rate.cat = 1, nSim = n_stm)
+  
+  # Discretize trees.
+  stm_discr <- lapply(stm, function(x) discr_Simmap_all(x, res = res) )
+  stm_discr <- do.call(c, stm_discr)
+  
+  # Save RDS files.
+  saveRDS(stm_discr, file = paste0("stmaps_discr/", br_chars[i], ".RDS"))
+  
+}
+```
+
+# STEP 2. PARAMO: amalgamating stochastic character maps.
+
+Now, we will finally amalgamate the individual character histories to describe the combined histories of all characters from each anatomical region.
+
+First, let's import all discretized maps of individual characters. This may require a lot memory depending on the size of trees, number of stochastic maps, and resolution parameter.
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE}
+# Set a vector with all character names.
+br_chars <- unlist(HYM_ANAT, use.names = FALSE)
+
+# Create temporary list to store discretized maps from individual characters.
+MAPS <- setNames(vector(mode = "list", length = length(br_chars)), br_chars)
+
+# Import all discretized maps from characters of a given anatomical region.
+for (k in 1:length(br_chars)) {
+
+  MAPS[[k]] <- readRDS(paste0("stmaps_discr/", br_chars[[k]], ".RDS"))
+
+}
+```
+
+Then we amalgamate stochastic maps by anatomical regions and by the entire phenome by running the main functions of the PARAMO pipeline.
+
+The function `paramo` amalgamate stochastic character maps given a list of partitions `HYM_ANAT`, here defined in the previous tutorial by querying the HAO ontology, and the list of stochastic maps `MAPS`. Each element of `HYM_ANAT` should be a vector of names matching the names of the elements in `MAPS`. Each element in `HYM_ANAT` is a partition of the original data representing a group of characters.
+
+Let's check our partitions again.
+```{r eval = TRUE, include = TRUE, message = FALSE, warning = FALSE}
+HYM_ANAT
+```
+
+And character statements.
+```{r eval = TRUE, include = TRUE, message = FALSE, warning = FALSE}
+lapply(HYM_ANAT, function(x) hym_annot %>% filter(char_id %in% x) %>% select(char) )
+```
+
+In this case, the groups represent the main anatomical regions of the hymenopteran anatomy, but PARAMO can be used to amalgamated any group of characters based on different hypotheses. For example, instead of anatomical regions, a researcher can groups traits associated with living in different types of environments (e.g. aquatic, terrestrial) or different types of traits (e.g., morphology, behavior). Each element in `MAPS` is a list of N stochastic maps obtained for each character. In our example, we have 10 characters per anatomical region, so 30 characters in total, 100 maps each.
+
+Let's amalgamate characters by anatomical regions first.
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE}
+# Amalgamate by anatomical regions.
+stm_amalg_anato <- paramo(rac_query = HYM_ANAT, tree.list = MAPS, ntrees = n_stm)
+```
+
+The function `paramo.list` is more flexible. Given a list of stochastic maps `MAPS`, you can simply provide a vector with the names of characters to amalgamate. Since we want to amalgamate all the characters to obtain the amalgamation of the entire phenome, we provide all names `br_chars`.
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE}
+# Amalgamate all individual characters as a single complex character.
+stm_amalg_pheno <- paramo.list(br_chars, tree.list = MAPS, ntrees = n_stm)
+```
+
+```{r eval = TRUE, include = FALSE, message = FALSE, warning = FALSE}
+stm_amalg_anato <- readRDS(paste0("data/stm_amalg_anato.RDS"))
+stm_amalg_pheno <- readRDS(paste0("data/stm_amalg_pheno.RDS"))
+```
+
+Let's plot a sample of stochastic map from the head, mesosoma, and metasoma.
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE}
+# Create a folder to store figures.
+dir.create("figures")
+
+# HEAD.
+png(paste0("figures/stm_head.png"), 
+    units = "in", width = 7, height = 7, res = 300)
+plotSimmap(stm_amalg_anato$head[[5]], 
+           get_rough_state_cols(stm_amalg_anato$head[[5]]),  
+           lwd = 3, pts = F,ftype = "off", ylim = c(0,90))
+title(main = "HEAD", font.main = 2, line = -1)
+dev.off()
+
+# MESOSOMA.
+png(paste0("figures/stm_meso.png"), 
+    units = "in", width = 7, height = 7, res = 300)
+plotSimmap(stm_amalg_anato$mesosoma[[5]], 
+           get_rough_state_cols(stm_amalg_anato$mesosoma[[5]]),  
+           lwd = 3, pts = F,ftype = "off", ylim = c(0,90))
+title(main = "MESOSOMA", font.main = 2, line = -1)
+dev.off()
+
+# METASOMA.
+png(paste0("figures/stm_meta.png"), 
+    units = "in", width = 7, height = 7, res = 300)
+plotSimmap(stm_amalg_anato$metasoma[[5]], 
+           get_rough_state_cols(stm_amalg_anato$metasoma[[5]]),  
+           lwd = 3, pts = F,ftype = "off", ylim = c(0,90))
+title(main = "METASOMA", font.main = 2, line = -1)
+dev.off()
+```
+
+```{r eval = TRUE, echo = FALSE, fig.cap = "A sample of stochastic map of the head, mesosoma, and metasoma characters.", out.width = "30%", out.height = "30%", fig.show = "hold",fig.align = "center"}
+knitr::include_graphics(paste0("figures/stm_", c("head", "meso", "meta"), ".png"))
+```
+
+```{r eval = FALSE, include = FALSE, message = FALSE, warning = FALSE}
+# Save RDS file of MAPS (heavy) remove from workspace.
+saveRDS(MAPS, file = paste0("data/stm_ind.RDS"))
+rm(MAPS)
+```
+
+And finally, save all the results.
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE}
+# Save RDS files.
+saveRDS(stm_amalg_anato, file = paste0("data/stm_amalg_anato.RDS"))
+saveRDS(stm_amalg_pheno, file = paste0("data/stm_amalg_pheno.RDS"))
+save.image("RData/step2_paramo.RData")
+```

@@ -1,0 +1,350 @@
+---
+title: "**OntoPhylo Tutorial: Application 1 - Estimating Branch Rates**"
+author: "Diego S. Porto and Sergei Tarasov"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  pdf_document:
+    citation_package: natbib
+bibliography: references.bib
+biblio-style: "apalike"
+---
+
+```{r setup, eval = TRUE, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load packages.
+
+If you are starting a new R session (again), then reload *ontophylo*.
+```{r eval = TRUE, include = TRUE, message = FALSE, warning = FALSE}
+library(ontophylo)
+```
+
+And all the other packages. If you have not them installed, please do so by running `install.packages()`.
+```{r eval = TRUE, include = TRUE, message = FALSE, warning = FALSE}
+library(phytools)
+library(tidyverse)
+library(grid)
+```
+
+## Load and organize data.
+
+Load the data from the previous tutorial.
+```{r eval = TRUE, include = TRUE, message = FALSE, warning = FALSE}
+load("RData/step2_paramo.RData")
+```
+
+Split the lists of amalgamated stochastic maps to facilitate downstream analyses.
+```{r eval = TRUE, include = TRUE, message = FALSE, warning = FALSE}
+stm_amalg_head <- stm_amalg_anato$head
+stm_amalg_meso <- stm_amalg_anato$mesosoma
+stm_amalg_meta <- stm_amalg_anato$metasoma
+```
+
+# Overview on rate estimation with OntoPhylo.
+
+*OntoPhylo* is able to infer evolutionary rates along branches and variation across lineages by using a non-homogeneous Poisson process (NHPP) to model trait evolution. As formalized in \citet{taddy2012}, NHPP can be reconstructed by estimating the density of transitions along branches and overall number of transitions across the tree. *OntoPhylo* uses the information on the number and timings of transitions between adjacent states to estimate the density along branches of stochastic maps of amalgamated characters using Kernel Density Estimation (KDE).
+
+# STEP 1. Processing state bins across branches.
+
+Before amalgamation, branches from individual stochastic character maps were discretized into episodic bins, each corresponding to a small fraction of the branch time spent into a state. Some adjacent bins are different, thus indicating that a transition has occurred, but others are identical, thus redundant. Let's merge the identical adjacent state bins across all branches and trees.
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE, results = "hide"}
+# Merge state categories across branches.
+cat(paste0("\n", "Starting merging state categories: ", Sys.time(), "\n"))
+stm_merg_head <- merge_tree_cat_list(stm_amalg_head)
+stm_merg_meso <- merge_tree_cat_list(stm_amalg_meso)
+stm_merg_meta <- merge_tree_cat_list(stm_amalg_meta)
+stm_merg_pheno <- merge_tree_cat_list(stm_amalg_pheno)
+cat(paste0("\n", "Finished merging state categories: ", Sys.time(), "\n"))
+```
+
+# STEP 2. Extracting branch data to estimate rates.
+
+Then, let's get the information on timings, duration of the intervals spent on each state, and number of transitions on each branch. For binary characters, it is straightforward to check if two adjacent bins are equal or not. However, for amalgamated characters, states are combinations of the states of individual characters. Amalgamated states are strings of concatenated numbers, each position corresponding to an individual character (e.g. "3010102042" and "2000102032"). In this case, we can get the number of transitions by calculating the Hamming distances between adjacent state bins. Each chunk of code below can take up to 15 minutes. So take it easy!!! First, let's just run the chunk for the head and skip the remaining ones for now (mesosoma, metasoma, phenome). We will return to these latter.
+
+### HEAD
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE}
+# Calculate Hamming distances between state vectors (10_15 min).
+cat(paste0("\n", "Starting calculating hamming distances: ", Sys.time(), "\n"))
+path_hm_head <- path_hamming_over_trees_KDE(stm_merg_head)
+cat(paste0("\n", "Finished calculating hamming distances: ", Sys.time(), "\n"))
+```
+
+### MESOSOMA
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE}
+# Calculate Hamming distances between state vectors (10_15 min).
+cat(paste0("\n", "Starting calculating hamming distances: ", Sys.time(), "\n"))
+path_hm_meso <- path_hamming_over_trees_KDE(stm_merg_meso)
+cat(paste0("\n", "Finished calculating hamming distances: ", Sys.time(), "\n"))
+```
+
+### METASOMA
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE}
+# Calculate Hamming distances between state vectors (5~10 min).
+cat(paste0("\n", "Starting calculating hamming distances: ", Sys.time(), "\n"))
+path_hm_meta <- path_hamming_over_trees_KDE(stm_merg_meta)
+cat(paste0("\n", "Finished calculating hamming distances: ", Sys.time(), "\n"))
+```
+
+### PHENOME
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE}
+# Calculate Hamming distances between state vectors (5~10 min).
+cat(paste0("\n", "Starting calculating hamming distances: ", Sys.time(), "\n"))
+path_hm_pheno <- path_hamming_over_trees_KDE(stm_merg_pheno)
+cat(paste0("\n", "Finished calculating hamming distances: ", Sys.time(), "\n"))
+```
+
+# STEP 3. Pre-process branch data and estimate KDE.
+
+Now, let's process again the branch data, calculate some parameters necessary for KDE, and finally estimate the KDEs.
+
+Discretize the reference tree.
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE}
+hym_tree_discr <- discr_Simmap(hym_tree, res = res)
+```
+
+Again, choose one chunk below to run. Let's run the chunk for the head first. In each chunk, `make_data_NHPP_KDE_Markov_kernel` will extract the timings of changes on each branch, then `estimate_band_W` will estimate the bandwidth to be used by `estimate_edge_KDE` in the Kernel Density Estimation (KDE).
+
+### HEAD
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE}
+# Make path data for all tips.
+path_data_head <- make_data_NHPP_KDE_Markov_kernel(path_hm_head)
+
+# Estimate bandwidth.
+bdw_hd <- estimate_band_W(hym_tree_discr, path_data_head, band.width = 'bw.nrd')
+bdw_hd <- mean(bdw_hd)
+
+# Estimate Kernel Density Estimator (KDE).
+cat(paste0("\n", "Starting estimating KDEs: ", Sys.time(), "\n"))
+edge_KDE_hd <- estimate_edge_KDE(hym_tree_discr, Path.data = path_data_head, h = bdw_hd)
+cat(paste0("\n", "Finished estimating KDEs: ", Sys.time(), "\n"))
+```
+
+### MESOSOMA
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE}
+# Make path data for all tips.
+path_data_meso <- make_data_NHPP_KDE_Markov_kernel(path_hm_meso)
+
+# Estimate bandwidth.
+bdw_ms <- estimate_band_W(hym_tree_discr, path_data_meso, band.width = 'bw.nrd')
+bdw_ms <- mean(bdw_ms)
+
+# Estimate Kernel Density Estimator (KDE).
+cat(paste0("\n", "Starting estimating KDEs: ", Sys.time(), "\n"))
+edge_KDE_ms <- estimate_edge_KDE(hym_tree_discr, Path.data = path_data_meso, h = bdw_ms)
+cat(paste0("\n", "Finished estimating KDEs: ", Sys.time(), "\n"))
+```
+
+### METASOMA
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE}
+# Make path data for all tips.
+path_data_meta <- make_data_NHPP_KDE_Markov_kernel(path_hm_meta)
+
+# Estimate bandwidth.
+bdw_mt <- estimate_band_W(hym_tree_discr, path_data_meta, band.width = 'bw.nrd')
+bdw_mt <- mean(bdw_mt)
+
+# Estimate Kernel Density Estimator (KDE).
+cat(paste0("\n", "Starting estimating KDEs: ", Sys.time(), "\n"))
+edge_KDE_mt <- estimate_edge_KDE(hym_tree_discr, Path.data = path_data_meta, h = bdw_mt)
+cat(paste0("\n", "Finished estimating KDEs: ", Sys.time(), "\n"))
+```
+
+### PHENOME
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE}
+# Make path data for all tips.
+path_data_pheno <- make_data_NHPP_KDE_Markov_kernel(path_hm_pheno)
+
+# Estimate bandwidth.
+bdw_ph <- estimate_band_W(hym_tree_discr, path_data_pheno, band.width = 'bw.nrd')
+bdw_ph <- mean(bdw_ph)
+
+# Estimate Kernel Density Estimator (KDE).
+cat(paste0("\n", "Starting estimating KDEs: ", Sys.time(), "\n"))
+edge_KDE_ph <- estimate_edge_KDE(hym_tree_discr, Path.data = path_data_pheno, h = bdw_ph)
+cat(paste0("\n", "Finished estimating KDEs: ", Sys.time(), "\n"))
+```
+
+# STEP 4. Post-process branch data and calculate rates.
+
+Now we just need to extract the overall number of transitions from the amalgamated stochastic maps and calculate some statistics to make the Poisson distributions. Again, choose one chunk below to run. Let's run the chunk for the head first. 
+
+### HEAD
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE, results = "hide"}
+# Calculate smoothing and normalize KDE data.
+edge_KDE_hd$Maps.mean.loess <- loess_smoothing_KDE(hym_tree_discr, edge_KDE_hd)
+edge_KDE_hd$Maps.mean.loess.norm <- normalize_KDE(hym_tree_discr, 
+                                                  edge_KDE_hd$Maps.mean.loess)
+
+# Calculate the lambda statistics of the Non-Homogeneus Poisson distribution.
+lambda_post_hd <- posterior_lambda_KDE(stm_merg_head)
+
+# Get the posterior distribution.
+edge_KDE_hd$lambda.mean <- make_postPois_KDE(edge_KDE_hd$Maps.mean.norm, 
+                                             lambda_post_hd, lambda.post.stat = 'Mean')
+edge_KDE_hd$lambda.mean.loess <- make_postPois_KDE(edge_KDE_hd$Maps.mean.loess.norm, 
+                                                lambda_post_hd, lambda.post.stat = 'Mean')
+```
+
+### MESOSOMA
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE, results = "hide"}
+# Calculate smoothing and normalize KDE data.
+edge_KDE_ms$Maps.mean.loess <- loess_smoothing_KDE(hym_tree_discr, edge_KDE_ms)
+edge_KDE_ms$Maps.mean.loess.norm <- normalize_KDE(hym_tree_discr, 
+                                                  edge_KDE_ms$Maps.mean.loess)
+
+# Calculate the lambda statistics of the Non-Homogeneus Poisson distribution.
+lambda_post_ms <- posterior_lambda_KDE(stm_merg_meso)
+
+# Get the posterior distribution.
+edge_KDE_ms$lambda.mean <- make_postPois_KDE(edge_KDE_ms$Maps.mean.norm, 
+                                             lambda_post_ms, lambda.post.stat = 'Mean')
+edge_KDE_ms$lambda.mean.loess <- make_postPois_KDE(edge_KDE_ms$Maps.mean.loess.norm, 
+                                                   lambda_post_ms, lambda.post.stat = 'Mean')
+```
+
+### METASOMA
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE, results = "hide"}
+# Calculate smoothing and normalize KDE data.
+edge_KDE_mt$Maps.mean.loess <- loess_smoothing_KDE(hym_tree_discr, edge_KDE_mt)
+edge_KDE_mt$Maps.mean.loess.norm <- normalize_KDE(hym_tree_discr, 
+                                                  edge_KDE_mt$Maps.mean.loess)
+
+# Calculate the lambda statistics of the Non-Homogeneus Poisson distribution.
+lambda_post_mt <- posterior_lambda_KDE(stm_merg_meta)
+
+# Get the posterior distribution.
+edge_KDE_mt$lambda.mean <- make_postPois_KDE(edge_KDE_mt$Maps.mean.norm, 
+                                             lambda_post_mt, lambda.post.stat = 'Mean')
+edge_KDE_mt$lambda.mean.loess <- make_postPois_KDE(edge_KDE_mt$Maps.mean.loess.norm, 
+                                                   lambda_post_mt, lambda.post.stat = 'Mean')
+```
+
+### PHENOME
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE, results = "hide"}
+# Calculate smoothing and normalize KDE data.
+edge_KDE_ph$Maps.mean.loess <- loess_smoothing_KDE(hym_tree_discr, edge_KDE_ph)
+edge_KDE_ph$Maps.mean.loess.norm <- normalize_KDE(hym_tree_discr, 
+                                                  edge_KDE_ph$Maps.mean.loess)
+
+# Calculate the lambda statistics of the Non-Homogeneus Poisson distribution.
+lambda_post_ph <- posterior_lambda_KDE(stm_merg_pheno)
+
+# Get the posterior distribution.
+edge_KDE_ph$lambda.mean <- make_postPois_KDE(edge_KDE_ph$Maps.mean.norm, 
+                                             lambda_post_ph, lambda.post.stat = 'Mean')
+edge_KDE_ph$lambda.mean.loess <- make_postPois_KDE(edge_KDE_ph$Maps.mean.loess.norm, 
+                                                   lambda_post_ph, lambda.post.stat = 'Mean')
+```
+
+# STEP 5. Make data for the contmaps and edgeplots.
+
+Now, let's just prepare the data for plotting. Again, choose one chunk below to run. Let's run the chunk for the head first.
+
+## HEAD
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE}
+# Make data for contmaps.
+nhpp_lambda_mean_hd <- make_contMap_KDE(hym_tree_discr, 
+                                        edge_KDE_hd$lambda.mean.loess)
+
+# Make data for edge profiles.
+edge_profs_lambda_mean_hd <- edge_profiles4plotting(hym_tree_discr, 
+                                                    edge_KDE_hd$lambda.mean.loess)
+```
+
+## MESOSOMA
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE}
+# Make data for contmaps.
+nhpp_lambda_mean_ms <- make_contMap_KDE(hym_tree_discr, 
+                                        edge_KDE_ms$lambda.mean.loess)
+
+# Make data for edge profiles.
+edge_profs_lambda_mean_ms <- edge_profiles4plotting(hym_tree_discr, 
+                                                    edge_KDE_ms$lambda.mean.loess)
+```
+
+## METASOMA
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE}
+# Make data for contmaps.
+nhpp_lambda_mean_mt <- make_contMap_KDE(hym_tree_discr, 
+                                        edge_KDE_mt$lambda.mean.loess)
+
+# Make data for edge profiles.
+edge_profs_lambda_mean_mt <- edge_profiles4plotting(hym_tree_discr, 
+                                                    edge_KDE_mt$lambda.mean.loess)
+```
+
+## PHENOME
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE}
+# Make data for contmaps.
+nhpp_lambda_mean_ph <- make_contMap_KDE(hym_tree_discr, 
+                                        edge_KDE_ph$lambda.mean.loess)
+
+# Make data for edge profiles.
+edge_profs_lambda_mean_ph <- edge_profiles4plotting(hym_tree_discr, 
+                                                    edge_KDE_ph$lambda.mean.loess)
+```
+
+# STEP 6. Plotting contmaps and edgeplots.
+
+Assuming you just ran the chunks for the head, let's plot the contmap and edgeplot saving to a PNG file.
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE}
+# Create a folder to store figures.
+dir.create("figures")
+
+# HEAD.
+# Save png.
+png(paste0("figures/edgeplot_head.png"), 
+    units = "in", width = 7, height = 7, res = 300)
+
+edgeplot(nhpp_lambda_mean_hd, edge_profs_lambda_mean_hd)
+title(main = "HEAD", font.main = 2, line = -0.5, cex.main = 0.8)
+
+dev.off()
+```
+
+```{r eval = FALSE, echo = FALSE, fig.cap = "Branch rates of head characters", out.width = "90%"}
+knitr::include_graphics(paste0("figures/edgeplot_head.png"))
+```
+
+If you already ran all the other chunks (i.e. head, mesosoma, metasoma, and phenome), then let's plot a nice figure with everything we got so far. Just run the chunk below.
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE}
+# MESOSOMA.
+# Save png.
+png(paste0("figures/edgeplot_meso.png"), 
+    units = "in", width = 7, height = 7, res = 300)
+
+edgeplot(nhpp_lambda_mean_ms, edge_profs_lambda_mean_ms)
+title(main = "MESOSOMA", font.main = 2, line = -0.5, cex.main = 0.8)
+
+dev.off()
+
+# METASOMA.
+# Save png.
+png(paste0("figures/edgeplot_meta.png"), 
+    units = "in", width = 7, height = 7, res = 300)
+
+edgeplot(nhpp_lambda_mean_mt, edge_profs_lambda_mean_mt)
+title(main = "METASOMA", font.main = 2, line = -0.5, cex.main = 0.8)
+
+dev.off()
+
+# PHENOME.
+# Save png.
+png(paste0("figures/edgeplot_pheno.png"), 
+    units = "in", width = 7, height = 7, res = 300)
+
+edgeplot(nhpp_lambda_mean_ph, edge_profs_lambda_mean_ph)
+title(main = "PHENOME", font.main = 2, line = -0.5, cex.main = 0.8)
+
+dev.off()
+```
+
+```{r eval = TRUE, echo = FALSE, fig.cap = "From left to right, top to bottom, branch rates of head, mesosoma, metasoma, and phenome.", out.width = "49%", out.height = "49%", fig.show = "hold",fig.align = "center"}
+knitr::include_graphics(paste0("figures/edgeplot_", c("head", "meso", "meta", "pheno"), ".png"))
+```
+
+And finally, save all the results.
+```{r eval = FALSE, include = TRUE, message = FALSE, warning = FALSE}
+save.image("RData/step3_nhpp.RData")
+```

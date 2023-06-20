@@ -1,0 +1,240 @@
+char_id,onto_id,term,char
+CH1,HAO:0000234,cranium,Ocellar corona
+CH2,HAO:0000234,cranium,Supraantennal groove or depression
+CH3,HAO:0000234,cranium,Notch on medial margin of eye
+CH4,HAO:0000234,cranium,Position of toruli relative to eyes
+CH5,HAO:0000234,cranium,Position of toruli relative to clypeus
+CH6,HAO:0000234,cranium,Subantennal shelf
+CH7,HAO:0000234,cranium,Inner margin of torulus
+CH8,HAO:0000234,cranium,Subantennal groove
+CH10,HAO:0000234,cranium,Mandibular foramen
+CH11,HAO:0000234,cranium,Occipital sulcus and ridge
+CH12,HAO:0000234,cranium,Position  occipital foramen
+CH13,HAO:0000234,cranium,Position  posterior tentorial pits
+CH16,HAO:0000234,cranium,Postoccipital bridge
+CH21,HAO:0000234,cranium,Shape  tentorial bridge
+CH27,HAO:0000639,mouthparts,Distal epipharyngeal wall
+CH28,HAO:0000639,mouthparts,Lateral epipharyngeal brush
+CH29,HAO:0000639,mouthparts,Epipharyngeal lobe
+CH31,HAO:0000639,mouthparts,Tormae
+CH36,HAO:0000639,mouthparts,Sitophore proximal extent
+CH37,HAO:0000639,mouthparts,Sitophore sensillae
+CH38,HAO:0000639,mouthparts,Hypopharyngeal lobe
+CH39,HAO:0000639,mouthparts,Infrabuccal pouch
+CH40,HAO:0000639,mouthparts,Hypopharyngeal pectens
+CH41,HAO:0000639,mouthparts,Left mandible dentition
+CH42,HAO:0000639,mouthparts,Dentition of right mandible relative to left
+CH43,HAO:0000639,mouthparts,Mola on right mandible
+CH44,HAO:0000639,mouthparts,Mandibular peg on ventral margin
+CH45,HAO:0000639,mouthparts,Mandibular rods glands
+CH46,HAO:0000639,mouthparts,Lateral articulation of mandible
+CH47,HAO:0000639,mouthparts,Lateral mandibular muscle attachment
+CH48,HAO:0000639,mouthparts,Shape of glossa  alaglossa
+CH49,HAO:0000639,mouthparts,Setation of glossa
+CH50,HAO:0000639,mouthparts,Glossal fringe
+CH51,HAO:0000639,mouthparts,Submarginal setae of glassa
+CH53,HAO:0000639,mouthparts,Acroglossal button
+CH54,HAO:0000639,mouthparts,Glossal margin
+CH57,HAO:0000639,mouthparts,Paraglossal basal setation
+CH58,HAO:0000639,mouthparts,Number of labial palp segments
+CH59,HAO:0000639,mouthparts,Rod like sensilla
+CH61,HAO:0000639,mouthparts,Postmentum
+CH62,HAO:0000639,mouthparts,First maxillay palpomere count
+CH63,HAO:0000639,mouthparts,Second maxillary palpomere count
+CH65,HAO:0000639,mouthparts,Fourth maxillary palpomere count
+CH66,HAO:0000639,mouthparts,Fifth maxillary palpomere count
+CH67,HAO:0000639,mouthparts,Sixth maxillary palpomere count
+CH68,HAO:0000639,mouthparts,Maxillary palp shape
+CH71,HAO:0000639,mouthparts,Shape of lacinia
+CH72,HAO:0000639,mouthparts,Galea shape
+CH73,HAO:0000639,mouthparts,Galea division
+CH74,HAO:0000639,mouthparts,Stipes sensillum
+CH75,HAO:0000853,pronotum,Pronotum shape anteriorly
+CH77,HAO:0000853,pronotum,Pronotum  submedian depressions
+CH80,HAO:0000853,pronotum,Pronotum  transverse carina
+CH81,HAO:0000853,pronotum,Pronotum  anterior surface
+CH82,HAO:0000853,pronotum,Pronotum  dorsomedially
+CH83,HAO:0000853,pronotum,Pronotum  submedian apodemes
+CH84,HAO:0000853,pronotum,Pronotum  anterolateral corners
+CH85,HAO:0000853,pronotum,Pronotum  anterolateral internal carina
+CH86,HAO:0000853,pronotum,Pronotum  posterodorsal corner
+CH87,HAO:0000853,pronotum,Pronotum  posterolateral margin
+CH88,HAO:0000853,pronotum,Pronotum  anterior spiracle
+CH89,HAO:0000853,pronotum,Pronotum  mesopleural attachment
+CH90,HAO:0000853,pronotum,Pronotum  lateroventral corners
+CH95,HAO:0000853,pronotum,Posterior pronotal inflection
+CH97,HAO:0000853,pronotum,Position  anterior thoracic spiracle
+CH99,HAO:0000854,propectus,Propleura  cervical prominences
+CH100,HAO:0000854,propectus,Propleura  position of cervical prominences
+CH102,HAO:0000854,propectus,Propleuron  cervical apodeme
+CH103,HAO:0000854,propectus,Propleuron  cervical apodeme configuration
+CH104,HAO:0000854,propectus,Propleuron  cervical lines
+CH105,HAO:0000854,propectus,Propleura  dorsal part
+CH106,HAO:0000854,propectus,Dorsal margins of propleura
+CH109,HAO:0000854,propectus,Propleura  lateroventral carina
+CH110,HAO:0000854,propectus,Propleura  median margins
+CH111,HAO:0000854,propectus,Propleura  epicoxal lobes
+CH112,HAO:0000854,propectus,Propleura  posterolateral groove
+CH115,HAO:0000854,propectus,Prosternum  anteroventral part
+CH116,HAO:0000854,propectus,Prosternal spine
+CH117,HAO:0000854,propectus,Prosternum  laterosternal sclerites
+CH118,HAO:0000854,propectus,Prosternum  subdivision
+CH119,HAO:0000854,propectus,Profurca  number of profurcal pits
+CH120,HAO:0000854,propectus,Profurca  anterior apodemes
+CH121,HAO:0000854,propectus,Profurca  bridge
+CH123,HAO:0001122,procoxa,Foreleg  procoxa
+CH124,HAO:0001122,procoxa,Foreleg  procoxal transverse carina
+CH125,HAO:0000350,fore tibia,Foreleg  protibial furrow
+CH126,HAO:0000350,fore tibia,Foreleg  calcar
+CH127,HAO:0000350,fore tibia,Foreleg  posterior apical protibial spur
+CH128,HAO:0001125,protarsus,Foreleg  probasitarsal notches
+CH129,HAO:0001125,protarsus,Foreleg  probasitarsal combs
+CH130,HAO:0001125,protarsus,Foreleg  probasitarsal spur
+CH136,HAO:0000556,mesonotum,Mesonotum  median mesoscutal sulcus and ridge
+CH137,HAO:0000556,mesonotum,Mesonotum  anteroadmedian signum
+CH141,HAO:0000556,mesonotum,Mesonotum  parapside
+CH142,HAO:0000556,mesonotum,Mesonotum  parascutal carina
+CH145,HAO:0000556,mesonotum,Mesonotum  transscutal carina
+CH146,HAO:0000556,mesonotum,Mesonotum  size of dorsal axillar surface
+CH147,HAO:0000556,mesonotum,Mesonotum  axillar carina
+CH148,HAO:0000556,mesonotum,Mesonotum  lateral corners of axilla
+CH149,HAO:0000556,mesonotum,Mesonotum  axillar phragma
+CH150,HAO:0000556,mesonotum,Mesonotum  scutoscutellar sulcus
+CH153,HAO:0000556,mesonotum,Mesonotum  internal median longitudinal mesoscutellar carina
+CH154,HAO:0000556,mesonotum,Mesonotum  internal septum
+CH155,HAO:0000556,mesonotum,Mesonotum  longitudinal subdivision of scutellum
+CH156,HAO:0000556,mesonotum,Mesonotum  frenum
+CH157,HAO:0000556,mesonotum,Mesonotum  mesoscutellum posteriorly
+CH158,HAO:0000556,mesonotum,Mesonotum  mesoscutellar appendage
+CH159,HAO:0000556,mesonotum,Mesonotum  mesoscutellar arm configuration
+CH160,HAO:0000556,mesonotum,Mesonotum  origin of mesoscutellar arms
+CH161,HAO:0000556,mesonotum,Mesonotum  mesoscutellar arm distally
+CH162,HAO:0000556,mesonotum,Mesophragma  pseudophragmal lobes
+CH163,HAO:0000556,mesonotum,Mesophragma  anterior margin position
+CH164,HAO:0000556,mesonotum,Mesophragma  mesophragmal pockets
+CH165,HAO:0000556,mesonotum,Mesophragma  median longitudinal carina
+CH169,HAO:0000556,mesonotum,Mesophragma  mesopostnotum
+CH170,HAO:0000556,mesonotum,Mesophragma  lateral attachment of mesopostnotum
+CH171,HAO:0000556,mesonotum,Mesophragma  lateral flanges
+CH172,HAO:0000853,pronotum,Mesopectus  configuration with mesonotum
+CH173,HAO:0000853,pronotum,Mesopectus  tegula configuration
+CH174,HAO:0000557,mesopectus,Mesopleuron  external part of basalar
+CH175,HAO:0000557,mesopectus,Mesopleuron  basalar apodeme
+CH176,HAO:0000557,mesopectus,Mesopleuron  postspiracular sclerite
+CH177,HAO:0000557,mesopectus,Mesopleuron  posterior thoracic spiracle configuration
+CH178,HAO:0000557,mesopectus,Mesopleuron  supramesopleural sclerite
+CH180,HAO:0000557,mesopectus,Mesopleuron mesopleural apodeme and mesepimeral ridge count
+CH182,HAO:0000557,mesopectus,Mesopectus  mesopleural ridge
+CH183,HAO:0000557,mesopectus,Mesopleuron  mesopleural pit
+CH184,HAO:0000557,mesopectus,Mesopectus  mesopleural triangle
+CH185,HAO:0000557,mesopectus,Mesoplueron  prospinasternum
+CH186,HAO:0000853,pronotum,Mesopleuron  prospinasternal apodeme
+CH187,HAO:0000557,mesopectus,Mesopleuron  acetabular epicnemial carina
+CH188,HAO:0000557,mesopectus,Mesopleuron  procoxal concavities
+CH189,HAO:0000557,mesopectus,Mesopleuron  subpleural signum
+CH190,HAO:0000557,mesopectus,Mesopectus  pseudosternal sulci
+CH191,HAO:0000557,mesopectus,Mesopectus  sternaular carina
+CH192,HAO:0000557,mesopectus,Mesopleuron  posterior transverse carina
+CH196,HAO:0000557,mesopectus,mesofurca  mesofurcal pit
+CH197,HAO:0000557,mesopectus,Mesofurca  mesospina and metafurco mesospinal muscle
+CH198,HAO:0000557,mesopectus,Mesofurca  arms proximally
+CH199,HAO:0000557,mesopectus,Mesofurca  anterior arm
+CH200,HAO:0000557,mesopectus,Mesofurca  bridge
+CH201,HAO:0000557,mesopectus,Mesofurca  anterior projection on bridge
+CH202,HAO:0000557,mesopectus,Mesofurca  lateral arm
+CH203,HAO:0000635,mid coxa,Midleg  mesocoxa
+CH204,HAO:0000635,mid coxa,Midleg  proximal part of mesocoxa
+CH205,HAO:0001130,mesotrochanter,Midleg  coxo trochanter articulation
+CH206,HAO:0001858,mesotrochantellus,Midleg  trochantellus
+CH209,HAO:0000603,metanotum,Metanotum  cenchri
+CH211,HAO:0000603,metanotum,Metanotum  humeral sclerite
+CH214,HAO:0000603,metanotum,Metanotum  incurvation posterad metascutellum
+CH215,HAO:0000603,metanotum,Metanotum  lateral longitudinal carina
+CH216,HAO:0000603,metanotum,Metanotum  lateral incision
+CH217,HAO:0000604,metapectal-propodeal complex,Metapleuron  apodemal part of metabasalare
+CH218,HAO:0000604,metapectal-propodeal complex,Metapleuron  metapleural arm   T1 association
+CH219,HAO:0000604,metapectal-propodeal complex,Metaplueron  metaplural arm configuration
+CH220,HAO:0000604,metapectal-propodeal complex,Metapleuron  metapisternal anapleural cleft
+CH224,HAO:0000604,metapectal-propodeal complex,Metapleuron  dorsal longitudinal ridge
+CH225,HAO:0000604,metapectal-propodeal complex,Metapleuron  metapleural pit
+CH226,HAO:0000604,metapectal-propodeal complex,Metapleuron  metapleural apodeme
+CH228,HAO:0000604,metapectal-propodeal complex,Metapleuron  paracoxal notches
+CH229,HAO:0000604,metapectal-propodeal complex,Metapleuron  median longitudinal carina projection
+CH230,HAO:0000604,metapectal-propodeal complex,Metapleuron  lateral longitudinal carina
+CH231,HAO:0000604,metapectal-propodeal complex,Metapleuron  ventral transverse carina
+CH233,HAO:0000604,metapectal-propodeal complex,Metapleuron  anterior paracoxal sulci ridges
+CH234,HAO:0000604,metapectal-propodeal complex,Metapleuron  posterior paracoxal ridge
+CH235,HAO:0000604,metapectal-propodeal complex,Metapleuron  anterior paracoxal ridge
+CH236,HAO:0000604,metapectal-propodeal complex,Metapleuron  metapectal plates
+CH237,HAO:0000604,metapectal-propodeal complex,Metapluron  metacoxal foramina
+CH240,HAO:0000604,metapectal-propodeal complex,Metapleuron  lateral coxal articulation
+CH241,HAO:0000604,metapectal-propodeal complex,Metapleuron  articulation notch
+CH242,HAO:0000604,metapectal-propodeal complex,Metafurca  metafurcal pit position
+CH243,HAO:0000604,metapectal-propodeal complex,Metafurca  number of metafurcal pits
+CH244,HAO:0000604,metapectal-propodeal complex,Metafurca  position
+CH245,HAO:0000604,metapectal-propodeal complex,Metafurca  furca discrimen configuration
+CH246,HAO:0000604,metapectal-propodeal complex,Metafurca  connection to mesofurca
+CH247,HAO:0000604,metapectal-propodeal complex,Metafurca  anterior metafurcal arm
+CH248,HAO:0000604,metapectal-propodeal complex,Metafurca  lateral metafurcal arm
+CH249,HAO:0000604,metapectal-propodeal complex,Hind leg  trochantins
+CH250,HAO:0000587,metacoxa,Hind leg  size of coxa
+CH251,HAO:0001140,metafemur,Hind leg  femoral spines
+CH252,HAO:0000631,metatibia,Hind leg  tibial preapical spurs
+CH253,HAO:0000631,metatibia,Hind leg  tibial brush
+CH254,HAO:0001125,metatarsus,Hind leg  tarsal plantulae
+CH255,HAO:0000604,metapectal-propodeal complex,Propodeum T1 medially
+CH256,HAO:0000604,metapectal-propodeal complex,Propodeum  metapostnotum association
+CH257,HAO:0000604,metapectal-propodeal complex,Propodeum  median antecostal projections
+CH258,HAO:0000604,metapectal-propodeal complex,Propodeum  lateral antecostal projections
+CH261,HAO:0000604,metapectal-propodeal complex,Propodeum  metalaterophragmal lobes
+CH262,HAO:0000604,metapectal-propodeal complex,Propodeum  metaphragma metapleural apodeme configuration
+CH264,HAO:0000604,metapectal-propodeal complex,Propodeum  median projection
+CH265,HAO:0000604,metapectal-propodeal complex,Propodeum  median longitudinal carina
+CH266,HAO:0000604,metapectal-propodeal complex,Propodeum  lateral longitudinal carina
+CH267,HAO:0000604,metapectal-propodeal complex,Propodeum  propodeal spiracle configuration
+CH268,HAO:0000604,metapectal-propodeal complex,Propodeum  propodeal spiracle laterally
+CH269,HAO:0000604,metapectal-propodeal complex,Propodeum  spiracle position  horizontal
+CH270,HAO:0000604,metapectal-propodeal complex,Propodeum  spiracle position  vertical
+CH271,HAO:0000604,metapectal-propodeal complex,Propodeum  transverse carina
+CH274,HAO:0000604,metapectal-propodeal complex,Propodeum  position of propodeal foramen
+CH279,HAO:0000626,metasoma,Petiole  T2 and S2 configuration
+CH280,HAO:0000626,metasoma,Petiole  posteriorly
+CH283,HAO:0000626,metasoma,Petiole  transverse carina on T2
+CH284,HAO:0000626,metasoma,Petiole  T2 longitudinal internal carina
+CH285,HAO:0000626,metasoma,Petiole  S2
+CH286,HAO:0000626,metasoma,Petiole  S2 posteriorly
+CH287,HAO:0000626,metasoma,Petiole  transverse carina anteriorly
+CH288,HAO:0000626,metasoma,Petiole  longitudinal carina anteriorly on S2
+CH353,HAO:0000351,fore wing,Forewing  costal and radial vein fusion
+CH354,HAO:0000351,fore wing,Forewing  cubital  Cu  vein shape
+CH355,HAO:0000351,fore wing,Forewing  costal  C  vein presence
+CH356,HAO:0000351,fore wing,Forewing  stigma presence
+CH357,HAO:0000351,fore wing,Forewing  subcostal  SC  vein presence
+CH358,HAO:0000351,fore wing,Forewing  second branch of radial sector  RS2  vein presence
+CH359,HAO:0000351,fore wing,Forewing  anal crossvein  a  presence
+CH360,HAO:0000351,fore wing,Forewing  nygmata  sensory spots  on wing membrane  in second submarginal cell
+CH363,HAO:0000400,hind wing,Hind wing  subcostal  SC  vein presence
+CH364,HAO:0000400,hind wing,HInd wing  number of rs m crossveins
+CH365,HAO:0000400,hind wing,Hind wing  m cu crossvein presence
+CH366,HAO:0000400,hind wing,Hind wing  medial  M  vein and cubital  Cu  vein fusion
+CH367,HAO:0000400,hind wing,Hind wing  costal margin
+CH368,HAO:0000400,hind wing,Hind wing  costal trough extending from base to hamuli
+CH370,HAO:0000400,hind wing,Hind wing  microspicules posterad hamuli
+CH371,HAO:0000400,hind wing,Hind wing  presence of guide setae or spines posterior to hamuli
+CH372,HAO:0000400,hind wing,Hind wing  presence of sclerotized glabrous plate posterior to hamuli
+CH373,HAO:0001351,mesotibia,Mesotibial apical spurs
+CH374,HAO:0000350,fore tibia,Tip of tibial spurs
+CH378,HAO:0000631,metatibia,Inner posterior metatibial spur
+CH380,HAO:0001351,mesotibia,Inner posterior mesotibial spur
+CH383,HAO:0001351,mesotibia,Midleg tibial comb
+CH385,HAO:0000626,metasoma,Interleaving of abdominal terga and sterna 4 and 5  metasomal terga 3 and 4
+CH386,HAO:0000626,metasoma,Presence of glymma  laterope
+CH387,HAO:0000626,metasoma,Articulation between abdominal tergum 2 and tergum 3  metasomal 1 and 2
+CH389,HAO:0000626,metasoma,Second abdominal sternum  first metasomal
+CH390,HAO:0000626,metasoma,Abdominal tergum 2  metasomal 1  overlapping abdominal tergum 3  metasomal 2
+CH392,HAO:0000626,female genitalia,Position of egg exit
+CH393,HAO:0000626,female genitalia,Ovipositor shape
+CH394,HAO:0000626,female genitalia,Furcula of ovipositor
+CH395,HAO:0000626,female genitalia,Structure of ovipositor sheaths
+CH396,HAO:0000626,female genitalia,Valvilli presence
+CH397,HAO:0000626,female genitalia,Second valvifer structure
