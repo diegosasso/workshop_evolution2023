@@ -10,7 +10,7 @@
 
 - [Materials and Tutorials for the Workshop](https://github.com/diegosasso/workshop_evolution2023/wiki)
 
-- **Date and Place:** June 21 (Wednesday) at the Evolution Meeting 2023 in Albuquerque, NM, USA.
+- **Date and Place:** June 21st (Wednesday), Evolution Meeting 2023. The Albuquerque Convention Center, Ruidoso room (convention center upper level, room 220)
 
 - **Time:** 8:30 am - 5:30 pm
 
